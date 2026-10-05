@@ -1,420 +1,159 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Samzin Kreave | SoulSoundWorld</title>
 
-  <!-- Base app verification -->
-  <meta name="base:app_id" content="6963368e8a6eeb04b568ddfb" />
-
-  <title>SoulSound World — Official Hub of Samzin Kreave</title>
-  <meta name="description" content="SoulSound World — Open creative ecosystem for dark synthwave, atmospheric hip-hop, serialized dark fiction, and live acoustic audio." />
-
-  <meta name="theme-color" content="#020617" />
-  <meta property="og:title" content="SoulSound World" />
-  <meta property="og:description" content="Official hub of Samzin Kreave — Dark synthwave, serialized dark fiction, and creative audio tools." />
-  <meta property="og:type" content="website" />
-
-  <link rel="canonical" href="https://soulsoundworld.com/" />
-  <meta property="og:url" content="https://soulsoundworld.com/" />
-  <meta property="og:image" content="https://soulsoundworld.com/og.png" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="SoulSound World" />
-  <meta name="twitter:description" content="Official hub of Samzin Kreave — Dark synthwave, serialized dark fiction, and creative audio tools." />
-  <meta name="twitter:image" content="https://soulsoundworld.com/og.png" />
+  <meta name="description"
+        content="Samzin Kreave — artist, songwriter, storyteller, and creator of the SoulSoundWorld universe.">
 
   <style>
-    :root{
-      --bg:#020617;          /* slate-950 */
-      --panel: rgba(2,6,23,.65);
-      --panel2: rgba(15,23,42,.35);
-      --border: rgba(51,65,85,.45);
-      --text:#e2e8f0;
-      --muted:#94a3b8;
-      --muted2:#64748b;
-      --brand:#4f46e5;       /* indigo */
-      --good:#34d399;        /* emerald */
-      --warn:#fbbf24;        /* amber */
-      --bad:#fb7185;         /* rose */
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #08080f;
+      color: #ffffff;
+      text-align: center;
     }
 
-    *{ box-sizing:border-box; }
-    html,body{ height:100%; }
-    body{
-      margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-      background: radial-gradient(1200px 600px at 20% 10%, rgba(79,70,229,.20), transparent 60%),
-                  radial-gradient(900px 500px at 80% 20%, rgba(168,85,247,.12), transparent 55%),
-                  var(--bg);
-      color: var(--text);
-      line-height: 1.55;
+    .container {
+      max-width: 700px;
+      margin: auto;
+      padding: 40px 20px;
     }
 
-    /* Layout */
-    .container{
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 40px 16px 60px;
-    }
-    .row{
-      display:flex;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-    .grid3{
-      display:grid;
-      grid-template-columns: repeat(3, minmax(0,1fr));
-      gap:12px;
-    }
-    .grid12{
-      display:grid;
-      grid-template-columns: repeat(12, minmax(0,1fr));
-      gap:12px;
-    }
-    .col6{ grid-column: span 6; }
-    .col12{ grid-column: span 12; }
-
-    @media (max-width: 900px){
-      .grid3{ grid-template-columns: 1fr; }
-      .col6{ grid-column: span 12; }
+    h1 {
+      font-size: 38px;
+      margin-bottom: 5px;
     }
 
-    /* Cards */
-    .card{
-      border:1px solid var(--border);
-      background: var(--panel);
-      border-radius: 18px;
-      padding: 20px;
-      margin-top: 14px;
-      backdrop-filter: blur(8px);
+    h2 {
+      font-size: 18px;
+      font-weight: normal;
+      margin-bottom: 35px;
+      opacity: 0.8;
     }
-    .card.soft{ background: var(--panel2); }
-    .cardTitle{ font-size: 18px; font-weight: 700; margin:0 0 6px 0; }
-    .small{ font-size: 12px; color: var(--muted); }
-    .p{ color: var(--muted); font-size: 14px; line-height: 1.5; margin: 8px 0 0; }
 
-    /* Badges */
-    .badge{
-      display:inline-flex;
-      align-items:center;
-      gap:6px;
-      padding: 6px 12px;
-      border-radius:999px;
-      border:1px solid var(--border);
-      background: rgba(15,23,42,.35);
-      font-size:12px;
-      color: var(--text);
-    }
-    .badge.critical{ border-color: rgba(251,113,133,.45); color: #fecdd3; }
-    .badge.warning{ border-color: rgba(251,191,36,.45); color: #fde68a; }
-    .badge.optimal{ border-color: rgba(52,211,153,.45); color: #bbf7d0; }
-
-    /* Buttons */
-    .btn{
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
+    .link {
+      display: block;
+      margin: 14px 0;
+      padding: 16px 20px;
+      border-radius: 12px;
+      background: #151522;
+      color: #ffffff;
       text-decoration: none;
-      border:1px solid var(--border);
-      background: rgba(15,23,42,.55);
-      color: var(--text);
-      border-radius: 999px;
-      padding: 10px 16px;
+      font-size: 17px;
+      border: 1px solid #292940;
+      transition: 0.2s;
+    }
+
+    .link:hover {
+      background: #24243a;
+      transform: translateY(-2px);
+    }
+
+    .section {
+      margin-top: 35px;
+      margin-bottom: 12px;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      opacity: 0.6;
+    }
+
+    footer {
+      margin-top: 40px;
       font-size: 13px;
-      font-weight: 650;
-      cursor: pointer;
-      transition: all 0.2s ease;
+      opacity: 0.5;
     }
-    .btn:hover{ background: rgba(30,41,59,.8); border-color: rgba(148,163,184,.4); }
-    .btn.primary{
-      background: var(--brand);
-      border-color: rgba(79,70,229,.6);
-      font-weight: 700;
-      color: #fff;
-    }
-    .btn.primary:hover{ filter: brightness(1.15); }
-    .btn.ghost{ background: transparent; }
-
-    /* Inputs */
-    .input, .textarea{
-      width:100%;
-      border:1px solid var(--border);
-      border-radius: 14px;
-      padding: 10px 12px;
-      background: rgba(15,23,42,.35);
-      color: var(--text);
-      outline:none;
-    }
-    .textarea{ resize: vertical; min-height: 120px; }
-
-    /* Tabs */
-    .tabs{
-      margin-top:22px;
-      border:1px solid var(--border);
-      border-radius: 18px;
-      background: var(--panel);
-      overflow:hidden;
-    }
-    .tabbar{
-      display:flex;
-      gap:8px;
-      padding:12px;
-      border-bottom:1px solid var(--border);
-      background: rgba(2,6,23,.8);
-      overflow-x:auto;
-      -webkit-overflow-scrolling:touch;
-    }
-    .tabbtn{
-      appearance:none;
-      border:1px solid var(--border);
-      background: rgba(15,23,42,.35);
-      color: var(--muted);
-      padding: 8px 14px;
-      border-radius: 999px;
-      font-size: 13px;
-      font-weight: 600;
-      cursor: pointer;
-      white-space: nowrap;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .tabbtn[aria-selected="true"]{
-      color: #fff;
-      border-color: rgba(79,70,229,.6);
-      background: var(--brand);
-    }
-
-    .panel{ padding: 20px; display:none; }
-    .panel.active{ display:block; }
-
-    /* Players & Frames */
-    .player{
-      width:100%;
-      height:166px;
-      border:0;
-      border-radius:14px;
-      overflow:hidden;
-      background:rgba(0,0,0,0.20);
-      margin-top: 10px;
-    }
-
-    .platform{
-      border:1px solid var(--border);
-      background: var(--panel2);
-      border-radius:16px;
-      padding:16px;
-      display:flex;
-      gap:14px;
-      align-items:flex-start;
-    }
-    .picon{
-      width:44px;
-      height:44px;
-      border-radius:12px;
-      border:1px solid var(--border);
-      background: rgba(15,23,42,.5);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      flex:0 0 auto;
-      font-size: 20px;
-    }
-
-    /* Helper Utilities */
-    .topbar{ display:flex; align-items:flex-end; justify-space-between; gap:12px; flex-wrap:wrap; }
-    .h1{ font-size: 32px; margin: 4px 0 0; font-weight: 900; letter-spacing:-.02em; }
-    .kicker{ font-size: 11px; text-transform: uppercase; letter-spacing:.12em; color: var(--muted2); font-weight: 700; }
-    .hr{ height:1px; background: var(--border); border:0; margin: 20px 0; }
-    .footer{ margin-top: 40px; text-align:center; color: var(--muted2); font-size: 12px; }
   </style>
 </head>
 
 <body>
+
   <div class="container">
-    
-    <!-- Topbar Banner -->
-    <div class="topbar">
-      <div>
-        <div class="kicker">Creative Realm & Audio Ecosystem</div>
-        <div class="h1">SOULSOUNDWORLD</div>
-      </div>
-      <div class="row">
-        <span class="badge optimal">🟢 Live on GitHub Pages</span>
-        <span class="badge">Artist: Samzin Kreave</span>
-      </div>
-    </div>
 
-    <!-- Hero Card -->
-    <div class="card" style="margin-top: 20px;">
-      <h2 class="cardTitle" style="font-size: 24px;">Official Hub of Samzin Kreave</h2>
-      <p class="p">
-        Dark Synthwave • Atmospheric Hip-Hop • Emo Rap • Serial Dark Fiction & Underground Audio
-      </p>
+    <h1>Samzin Kreave</h1>
+    <h2>SoulSoundWorld</h2>
 
-      <div class="row" style="margin-top: 16px;">
-        <a class="btn primary" href="https://on.soundcloud.com/5JTKq7WvXLq6x0oICU" target="_blank" rel="noopener">🎧 Open SoundCloud →</a>
-        <a class="btn" href="#music">Jump to Catalog ↓</a>
-      </div>
+    <div class="section">Music</div>
 
-      <div class="hr"></div>
+    <a class="link"
+       href="https://open.spotify.com/artist/3uugCAf5GNkNToPtdWGcQl"
+       target="_blank">
+      🎵 Spotify — Samzin Kreave
+    </a>
 
-      <div class="small" style="margin-bottom: 8px;"><strong>Featured Track — Tomorrow’s Yesterday</strong></div>
-      <iframe
-        class="player"
-        title="SoundCloud player — Tomorrow’s Yesterday"
-        allow="autoplay"
-        src="https://w.soundcloud.com/player/?url=https%3A%2F%2Fsoundcloud.com%2Fsamzin-kreave-411244422%2Ftomorrows-yesterday&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&visual=true">
-      </iframe>
-    </div>
+    <a class="link"
+       href="https://suno.com/@soulsoundworldofficial"
+       target="_blank">
+      🎧 Suno — SoulSoundWorld
+    </a>
 
-    <!-- Mission Statement -->
-    <div class="card soft" style="margin-top: 16px;">
-      <h3 class="cardTitle">The Mission</h3>
-      <p class="p">
-        SoulSound exists to protect and amplify human emotional expression in a world increasingly shaped by automation, speed, and surface-level culture.
-      </p>
-      <p class="p">
-        We build living story worlds, music, and creative tools that interlock — not to optimize attention, but to deepen connection. Every song is an artifact. Every story is a signal.
-      </p>
-    </div>
+    <a class="link"
+       href="https://www.bandlab.com/skreave"
+       target="_blank">
+      🎼 BandLab — Samzin Kreave
+    </a>
 
-    <!-- Main Workspace Tabs -->
-    <div class="tabs">
-      <div class="tabbar" role="tablist">
-        <button class="tabbtn" type="button" aria-selected="true" onclick="openTab(event, 'openbuild')">🛠️ Open Build</button>
-        <button class="tabbtn" type="button" onclick="openTab(event, 'live')">🔴 Production Tools</button>
-        <button class="tabbtn" type="button" onclick="openTab(event, 'story')">📖 Narrative Worlds</button>
-        <button class="tabbtn" type="button" onclick="openTab(event, 'music')">🎵 Music Catalog</button>
-      </div>
 
-      <!-- OPEN BUILD PANEL -->
-      <section class="panel active" id="openbuild">
-        <h3 class="cardTitle">Open Build Hub</h3>
-        <p class="small">SoulSoundWorld is built transparently in public — view source repositories, updates, and site infrastructure directly on GitHub.</p>
+    <div class="section">Stories</div>
 
-        <div class="grid12" style="margin-top: 16px;">
-          <div class="platform col12">
-            <div class="picon">🐙</div>
-            <div>
-              <div style="font-weight: 700;">GitHub Repository</div>
-              <div class="small" style="margin: 4px 0 10px;">Track code commits, site iterations, and underlying web architecture.</div>
-              <div class="row">
-                <a class="btn primary" href="https://github.com/soulsoundworldofficial-lang/Soulsoundworld" target="_blank" rel="noopener">View Soulsoundworld Repository →</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+    <!-- CORRECTED: This is the Samzin Kreave author hub
+         and leads to ALL stories on Pocket FM. -->
 
-      <!-- PRODUCTION TOOLS PANEL -->
-      <section class="panel" id="live">
-        <h3 class="cardTitle">Production Tools & Creation Suite</h3>
-        <p class="small">Instruments and software workflows used to compose, refine, and produce the SoulSound audio universe.</p>
+    <a class="link"
+       href="https://listen.pocketfm.com/2IE7/9m035nzz"
+       target="_blank">
+      📖 Pocket FM — Samzin Kreave Author / All Stories
+    </a>
 
-        <div class="grid12" style="margin-top: 16px;">
-          <div class="platform col12">
-            <div class="picon">🎶</div>
-            <div>
-              <div style="font-weight: 700;">Suno — Generation Forge</div>
-              <div class="small" style="margin: 4px 0 10px;">Used to generate raw musical artifacts and sound synthesis that become part of SoulSound World.</div>
-              <a class="btn primary" href="https://suno.com/@soulsoundsamzin" target="_blank" rel="noopener">Open Suno Profile →</a>
-            </div>
-          </div>
 
-          <div class="platform col12" style="margin-top: 12px;">
-            <div class="picon">🎛️</div>
-            <div>
-              <div style="font-weight: 700;">BandLab — Refinement Studio</div>
-              <div class="small" style="margin: 4px 0 10px;">Used to refine arrangements, structure vocal layers, mix tracks, and prepare final releases.</div>
-              <a class="btn primary" href="https://www.bandlab.com/sk88studiozinc" target="_blank" rel="noopener">Open BandLab Profile →</a>
-            </div>
-          </div>
-        </div>
-      </section>
+    <div class="section">Social</div>
 
-      <!-- NARRATIVE WORLDS PANEL -->
-      <section class="panel" id="story">
-        <h3 class="cardTitle">Serialized Narrative Fiction</h3>
-        <p class="small">Dark audio fiction, worldbuilding archives, and serialized storytelling projects including <em>Goblin Salt</em> and <em>Tomorrow’s Yesterday</em>.</p>
+    <a class="link"
+       href="https://www.instagram.com/"
+       target="_blank">
+      📸 Instagram — Samzin Kreave
+    </a>
 
-        <div class="grid12" style="margin-top: 16px;">
-          <div class="platform col12">
-            <div class="picon">📻</div>
-            <div>
-              <div style="font-weight: 700;">Pocket FM Transmission</div>
-              <div class="small" style="margin: 4px 0 10px;">Stream narrative episodes and vocal story arcs directly online.</div>
-              <a class="btn primary" href="https://pocketfm.onelink.me/2IE7/8ko9llk1" target="_blank" rel="noopener">Listen on Pocket FM →</a>
-            </div>
-          </div>
-        </div>
-      </section>
+    <a class="link"
+       href="https://www.facebook.com/share/1DncoHn9B6/"
+       target="_blank">
+      📘 Facebook — Samzin Kreave
+    </a>
 
-      <!-- MUSIC CATALOG PANEL -->
-      <section class="panel" id="music">
-        <h3 class="cardTitle">Music Releases & Discography</h3>
-        <p class="small">Original releases by Samzin Kreave across streaming networks and independent archives.</p>
+    <a class="link"
+       href="https://www.reddit.com/u/Samzin_Kreave/"
+       target="_blank">
+      👽 Reddit — Samzin Kreave
+    </a>
 
-        <div class="grid12" style="margin-top: 16px;">
-          <div class="platform col6">
-            <div class="picon">🕹️</div>
-            <div>
-              <div style="font-weight: 700;">Go Pac-Man Go</div>
-              <div class="small" style="margin: 4px 0 8px;">Retro Arcade / Dark Synth single. Distributed via FreshTunes.</div>
-              <span class="badge optimal">Active Release</span>
-            </div>
-          </div>
 
-          <div class="platform col6">
-            <div class="picon">📼</div>
-            <div>
-              <div style="font-weight: 700;">Be Kind Rewind</div>
-              <div class="small" style="margin: 4px 0 8px;">Atmospheric continuation single to Go Pac-Man Go.</div>
-              <span class="badge optimal">Active Release</span>
-            </div>
-          </div>
+    <div class="section">SoulSoundWorld</div>
 
-          <div class="platform col6" style="margin-top: 12px;">
-            <div class="picon">✨</div>
-            <div>
-              <div style="font-weight: 700;">Sparks in the Dark</div>
-              <div class="small" style="margin: 4px 0 8px;">Atmospheric electronic arrangement featuring themes of resilience.</div>
-              <span class="badge">Catalog Track</span>
-            </div>
-          </div>
+    <a class="link"
+       href="https://github.com/soulsoundworldofficial-lang"
+       target="_blank">
+      💻 GitHub — SoulSoundWorld
+    </a>
 
-          <div class="platform col6" style="margin-top: 12px;">
-            <div class="picon">🥀</div>
-            <div>
-              <div style="font-weight: 700;">Dancing With Her Devils</div>
-              <div class="small" style="margin: 4px 0 8px;">Dark alternative composition locked to the silver platter stage.</div>
-              <span class="badge">Catalog Track</span>
-            </div>
-          </div>
-        </div>
-      </section>
 
-    </div>
+    <div class="section">Support</div>
 
-    <!-- Footer -->
-    <div class="footer">
-      <p>© 2026 SoulSoundWorld • Created & Maintained by Samzin Kreave</p>
-    </div>
+    <a class="link"
+       href="https://cash.app/$SammuelMejias8"
+       target="_blank">
+      💰 Support Samzin Kreave — Cash App
+    </a>
+
+
+    <footer>
+      © Samzin Kreave · SoulSoundWorld
+    </footer>
 
   </div>
 
-  <!-- Tab Switching Script -->
-  <script>
-    function openTab(evt, tabName) {
-      const panels = document.querySelectorAll('.panel');
-      const buttons = document.querySelectorAll('.tabbtn');
-
-      panels.forEach(panel => panel.classList.remove('active'));
-      buttons.forEach(btn => btn.setAttribute('aria-selected', 'false'));
-
-      document.getElementById(tabName).classList.add('active');
-      evt.currentTarget.setAttribute('aria-selected', 'true');
-    }
-  </script>
 </body>
 </html>
