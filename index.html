@@ -1,279 +1,179 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#08080f">
-  <meta name="description" content="SoulSoundWorld by Samzin Kreave — music, serialized stories, creator tools, and worlds without limits.">
-  <title>Samzin Kreave | SoulSoundWorld</title>
-  <style>
-    :root {
-      color-scheme: dark;
-      --bg: #08080f;
-      --panel: #12121e;
-      --panel-2: #191929;
-      --line: #2b2b43;
-      --text: #f5f3ff;
-      --muted: #b5b2cb;
-      --accent: #b7a0ff;
-      --accent-2: #78e6dc;
-      --danger: #ffb4c2;
-      --radius: 18px;
-      --max: 1080px;
-    }
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; scroll-padding-top: 84px; }
-    body {
-      margin: 0; background:
-        radial-gradient(ellipse at 10% 0%, rgba(116, 79, 220, .16), transparent 34rem),
-        radial-gradient(ellipse at 95% 12%, rgba(63, 196, 188, .09), transparent 30rem),
-        var(--bg);
-      color: var(--text); font: 16px/1.6 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    }
-    a { color: inherit; }
-    button, input, select, textarea { font: inherit; }
-    button, .button {
-      display: inline-flex; justify-content: center; align-items: center; gap: .45rem;
-      border: 1px solid var(--line); border-radius: 999px; padding: .72rem 1rem;
-      color: var(--text); background: var(--panel-2); text-decoration: none; cursor: pointer;
-      transition: transform .16s ease, border-color .16s ease, background .16s ease;
-    }
-    button:hover, .button:hover { transform: translateY(-1px); border-color: var(--accent); }
-    button.primary, .button.primary { background: var(--accent); color: #151020; border-color: transparent; font-weight: 750; }
-    button.secondary, .button.secondary { border-color: var(--accent); }
-    button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
-      outline: 3px solid var(--accent-2); outline-offset: 3px;
-    }
-    .wrap { width: min(var(--max), calc(100% - 32px)); margin: 0 auto; }
-    .topbar {
-      position: sticky; top: 0; z-index: 10; backdrop-filter: blur(16px);
-      background: rgba(8, 8, 15, .86); border-bottom: 1px solid rgba(255,255,255,.08);
-    }
-    .nav { min-height: 66px; display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
-    .brand { text-decoration: none; font-weight: 850; letter-spacing: .02em; }
-    .brand span { color: var(--accent); }
-    .navlinks { display: flex; gap: .35rem; flex-wrap: wrap; justify-content: flex-end; }
-    .navlinks a { padding: .45rem .65rem; color: var(--muted); text-decoration: none; font-size: .9rem; border-radius: 999px; }
-    .navlinks a:hover { background: var(--panel); color: var(--text); }
-    .hero { padding: 5rem 0 3.5rem; }
-    .eyebrow { color: var(--accent-2); text-transform: uppercase; font-size: .76rem; letter-spacing: .19em; font-weight: 800; }
-    h1 { font-size: clamp(2.5rem, 7vw, 5.2rem); line-height: .99; letter-spacing: -.055em; margin: .75rem 0 1.1rem; max-width: 850px; }
-    h1 .glow { color: var(--accent); }
-    .lead { max-width: 720px; font-size: clamp(1.04rem, 2.2vw, 1.24rem); color: var(--muted); }
-    .hero-actions { display: flex; flex-wrap: wrap; gap: .7rem; margin-top: 1.5rem; }
-    .hero-strip { margin-top: 2.2rem; display: grid; grid-template-columns: repeat(3, 1fr); gap: .75rem; }
-    .strip-item { padding: 1rem; background: rgba(18,18,30,.72); border: 1px solid var(--line); border-radius: 15px; }
-    .strip-item strong { display: block; font-size: 1rem; }
-    .strip-item small { color: var(--muted); }
-    section { padding: 2.2rem 0; }
-    .section-head { display: flex; justify-content: space-between; align-items: end; gap: 1rem; margin-bottom: 1.1rem; }
-    h2 { margin: 0; font-size: clamp(1.6rem, 3.5vw, 2.3rem); letter-spacing: -.035em; line-height: 1.15; }
-    h3 { margin: 0; font-size: 1.15rem; }
-    .section-head p { margin: .45rem 0 0; color: var(--muted); max-width: 650px; }
-    .grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 1rem; }
-    .grid.two { grid-template-columns: repeat(2, minmax(0,1fr)); }
-    .card {
-      background: linear-gradient(160deg, rgba(25,25,41,.97), rgba(16,16,27,.97));
-      border: 1px solid var(--line); border-radius: var(--radius); padding: 1.2rem;
-      min-width: 0; display: flex; flex-direction: column; gap: .75rem;
-    }
-    .card p { color: var(--muted); margin: 0; }
-    .card .actions { display: flex; gap: .5rem; flex-wrap: wrap; margin-top: auto; padding-top: .4rem; }
-    .tag { display: inline-flex; width: fit-content; border: 1px solid var(--line); color: var(--accent-2); padding: .2rem .55rem; border-radius: 999px; font-size: .75rem; font-weight: 750; }
-    .story-icon { font-size: 2rem; line-height: 1.2; }
-    .story-card { min-height: 265px; }
-    .story-card.death { border-color: rgba(255,180,194,.42); }
-    .story-card.drift { border-color: rgba(183,160,255,.55); }
-    .story-card.goblin { border-color: rgba(120,230,220,.38); }
-    .notice { border: 1px solid rgba(183,160,255,.35); border-radius: 14px; padding: .9rem 1rem; color: var(--muted); background: rgba(183,160,255,.06); }
-    .toolbar { display: flex; gap: .7rem; flex-wrap: wrap; margin-bottom: 1rem; }
-    .toolbar input { flex: 1 1 230px; }
-    input, select, textarea {
-      width: 100%; background: #0b0b14; color: var(--text); border: 1px solid var(--line);
-      border-radius: 12px; padding: .8rem .9rem; min-width: 0;
-    }
-    label { display: block; color: var(--muted); font-size: .88rem; margin-bottom: .35rem; }
-    .field { margin-bottom: .9rem; }
-    textarea { min-height: 125px; resize: vertical; }
-    .tool-layout { display: grid; grid-template-columns: .9fr 1.1fr; gap: 1rem; }
-    .output { min-height: 220px; white-space: pre-wrap; background: #090912; border: 1px solid var(--line); border-radius: 14px; padding: 1rem; color: #e8e4ff; }
-    .link-grid { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: .65rem; }
-    .link-card { display: flex; flex-direction: column; gap: .2rem; text-decoration: none; padding: .9rem; background: var(--panel); border: 1px solid var(--line); border-radius: 13px; }
-    .link-card strong { font-size: .94rem; }
-    .link-card span { color: var(--muted); font-size: .78rem; }
-    .link-card:hover { border-color: var(--accent); }
-    .newsletter { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; align-items: start; }
-    .newsletter-panel { border: 1px dashed var(--line); border-radius: var(--radius); padding: 1.2rem; background: rgba(18,18,30,.65); }
-    .checks { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: .5rem; margin: .7rem 0 1rem; }
-    .check { display: flex; align-items: start; gap: .5rem; font-size: .88rem; color: var(--muted); }
-    .check input { width: auto; margin-top: .25rem; }
-    .fine { color: var(--muted); font-size: .83rem; }
-    .footer { padding: 2.5rem 0 3.5rem; border-top: 1px solid var(--line); color: var(--muted); margin-top: 2rem; }
-    .footer-row { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
-    .toast { position: fixed; bottom: 1rem; left: 50%; transform: translateX(-50%); z-index: 20; padding: .75rem 1rem; background: var(--accent-2); color: #071311; border-radius: 999px; font-weight: 800; box-shadow: 0 8px 35px #0008; display: none; max-width: calc(100% - 24px); }
-    .hidden { display: none !important; }
-    @media (max-width: 780px) {
-      .nav { align-items: flex-start; flex-direction: column; padding: .8rem 0; }
-      .navlinks { justify-content: flex-start; }
-      .hero { padding-top: 3.2rem; }
-      .grid { grid-template-columns: 1fr; }
-      .grid.two, .tool-layout, .newsletter { grid-template-columns: 1fr; }
-      .link-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
-      .hero-strip { grid-template-columns: 1fr; }
-      .section-head { align-items: flex-start; flex-direction: column; }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      html { scroll-behavior: auto; }
-      *, *::before, *::after { transition: none !important; }
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#080910">
+<title>SoulSoundWorld | Enter the Universe of Samzin Kreave</title>
+<meta name="description" content="Enter SoulSoundWorld, Samzin Kreave's transmedia universe of original music, serialized fiction, cyber-mysticism, retro-arcade lore, and digital art.">
+<meta name="keywords" content="SoulSoundWorld, Samzin Kreave, Through the Drift, Death Notes, Goblin Salt, Nova Prime, Under the Red Moons, transmedia storytelling, independent music, serialized fiction, cyber-mysticism, digital art">
+<meta name="author" content="Samzin Kreave">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://soulsoundworld.com/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="SoulSoundWorld">
+<meta property="og:title" content="SoulSoundWorld | Enter the Universe">
+<meta property="og:description" content="Music is the signal. Stories are the system. Enter the interconnected worlds of Samzin Kreave.">
+<meta property="og:url" content="https://soulsoundworld.com/">
+<meta property="og:image" content="https://soulsoundworld.com/og-image.jpg">
+<meta property="og:image:alt" content="SoulSoundWorld — a cinematic cyber-mystic transmedia universe">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="SoulSoundWorld | Enter the Universe">
+<meta name="twitter:description" content="Discover the music, serialized fiction, and digital worlds created by Samzin Kreave.">
+<meta name="twitter:image" content="https://soulsoundworld.com/og-image.jpg">
+<script type="application/ld+json">
+{
+ "@context":"https://schema.org","@graph":[
+  {"@type":"WebSite","@id":"https://soulsoundworld.com/#website","url":"https://soulsoundworld.com/","name":"SoulSoundWorld","description":"An interconnected transmedia entertainment universe spanning original music, serialized fiction, speculative worldbuilding, and digital art.","inLanguage":"en-US","publisher":{"@id":"https://soulsoundworld.com/#organization"},"creator":{"@id":"https://soulsoundworld.com/#samzin"},"about":{"@id":"https://soulsoundworld.com/#universe"}},
+  {"@type":"Organization","@id":"https://soulsoundworld.com/#organization","name":"SoulSoundWorld","url":"https://soulsoundworld.com/","description":"Independent transmedia creative ecosystem connecting music, serialized fiction, cyber-mysticism, retro-arcade worldbuilding, and digital art.","founder":{"@id":"https://soulsoundworld.com/#samzin"},"brand":{"@id":"https://soulsoundworld.com/#brand"}},
+  {"@type":"Brand","@id":"https://soulsoundworld.com/#brand","name":"SoulSoundWorld","url":"https://soulsoundworld.com/","founder":{"@id":"https://soulsoundworld.com/#samzin"}},
+  {"@type":"Person","@id":"https://soulsoundworld.com/#samzin","name":"Samzin Kreave","url":"https://soulsoundworld.com/","jobTitle":["Founder","Creative Director","Music Producer","Songwriter","Author"],"worksFor":{"@id":"https://soulsoundworld.com/#organization"},"sameAs":["https://open.spotify.com/artist/3uugCAf5GNkNToPtdWGcQl","https://youtube.com/@samzinkreave_soulsoundworld","https://suno.com/@soulsoundworldofficial","https://www.bandlab.com/skreave","https://www.tiktok.com/@samzin.kreave","https://www.instagram.com/soulsoundworld_creations?stkn=NGt5aGtjZDNlMm12","https://www.reddit.com/u/Samzin_Kreave/"]},
+  {"@type":"CreativeWork","@id":"https://soulsoundworld.com/#universe","name":"SoulSoundWorld Transmedia Universe","url":"https://soulsoundworld.com/","description":"An interconnected creative universe linking original music, serialized audio fiction, cyber-mysticism, retro-arcade mythology, speculative worldbuilding, and digital art.","creator":{"@id":"https://soulsoundworld.com/#samzin"},"publisher":{"@id":"https://soulsoundworld.com/#organization"},"hasPart":[{"@id":"https://soulsoundworld.com/#death-notes"},{"@id":"https://soulsoundworld.com/#through-the-drift"},{"@id":"https://soulsoundworld.com/#goblin-salt"},{"@id":"https://soulsoundworld.com/#nova-prime"},{"@id":"https://soulsoundworld.com/#death-notes-album"},{"@id":"https://soulsoundworld.com/#through-the-drift-album"}]},
+  {"@type":"CreativeWorkSeries","@id":"https://soulsoundworld.com/#through-the-drift","name":"Through the Drift","description":"A science-fiction narrative blending cybernetic technology, speculative worldbuilding, serialized storytelling, and music.","creator":{"@id":"https://soulsoundworld.com/#samzin"},"isPartOf":{"@id":"https://soulsoundworld.com/#universe"},"sameAs":["https://unitedmasters.com/m/through-the-drift"]},
+  {"@type":"CreativeWorkSeries","@id":"https://soulsoundworld.com/#death-notes","name":"Death Notes","description":"A dark speculative fiction project within the SoulSoundWorld creative ecosystem.","creator":{"@id":"https://soulsoundworld.com/#samzin"},"isPartOf":{"@id":"https://soulsoundworld.com/#universe"},"sameAs":["https://unitedmasters.com/m/death-notes-10"]},
+  {"@type":"CreativeWorkSeries","@id":"https://soulsoundworld.com/#goblin-salt","name":"Goblin Salt","description":"A serialized fiction project associated with the SoulSoundWorld universe.","creator":{"@id":"https://soulsoundworld.com/#samzin"},"isPartOf":{"@id":"https://soulsoundworld.com/#universe"}},
+  {"@type":"MusicAlbum","@id":"https://soulsoundworld.com/#death-notes-album","name":"Death Notes","byArtist":{"@id":"https://soulsoundworld.com/#samzin"},"datePublished":"2026-10-23","url":"https://unitedmasters.com/m/death-notes-10","isPartOf":{"@id":"https://soulsoundworld.com/#universe"}},
+  {"@type":"MusicAlbum","@id":"https://soulsoundworld.com/#through-the-drift-album","name":"Through the Drift","byArtist":{"@id":"https://soulsoundworld.com/#samzin"},"datePublished":"2026-12-04","url":"https://unitedmasters.com/m/through-the-drift","isPartOf":{"@id":"https://soulsoundworld.com/#universe"}}
+ ]}
+</script>
+<style>
+:root{color-scheme:dark;--bg:#080910;--panel:#111320;--line:rgba(164,171,218,.2);--text:#f4f3fb;--muted:#a5a8bd;--red:#ff3158;--violet:#a56bff;--cyan:#52e6f2;--gold:#f4c77a;--max:1160px}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:85px}body{margin:0;background:radial-gradient(ellipse at 85% 2%,#75287830,transparent 35rem),radial-gradient(ellipse at 4% 23%,#215f9a22,transparent 30rem),var(--bg);color:var(--text);font:16px/1.6 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;opacity:.16;background-image:linear-gradient(#8c9bbe12 1px,transparent 1px),linear-gradient(90deg,#8c9bbe12 1px,transparent 1px);background-size:44px 44px}
+a{color:inherit;text-decoration:none}button,textarea{font:inherit}.wrap{width:min(var(--max),calc(100% - 40px));margin:auto}.topline{height:3px;background:linear-gradient(90deg,var(--red),var(--violet),var(--cyan))}
+header{position:sticky;top:0;z-index:50;backdrop-filter:blur(18px);background:#080910d9;border-bottom:1px solid var(--line)}nav{min-height:74px;display:flex;align-items:center;justify-content:space-between;gap:20px}.brand{display:flex;align-items:center;gap:12px;font-weight:900;letter-spacing:.12em;font-size:.86rem}.mark{width:34px;height:34px;display:grid;place-items:center;border:1px solid #ff3158a6;color:var(--red);transform:rotate(45deg);box-shadow:0 0 25px #ff315826}.mark span{transform:rotate(-45deg)}.links{display:flex;align-items:center;gap:21px;color:var(--muted);font-size:.87rem}.links a:hover,.social a:hover{color:var(--cyan)}.navcta{border:1px solid #ff3158a6;border-radius:99px;padding:8px 13px;color:white!important}.toggle{display:none;background:var(--panel);border:1px solid var(--line);color:white;border-radius:10px;padding:8px 12px}
+.hero{min-height:650px;display:grid;grid-template-columns:1.05fr .95fr;align-items:center;gap:42px;padding-block:65px 80px}.eyebrow{display:flex;align-items:center;gap:10px;color:var(--cyan);font-size:.72rem;font-weight:850;letter-spacing:.2em;text-transform:uppercase}.pulse{width:7px;height:7px;border-radius:50%;background:var(--red);box-shadow:0 0 16px var(--red)}h1,h2,h3,p{margin-top:0}h1{font-size:clamp(3.2rem,7.8vw,6.7rem);line-height:.91;letter-spacing:-.075em;margin:23px 0}.gradient{color:transparent;background:linear-gradient(100deg,#fff,#d8c5ff 35%,#ff6c83 74%,#68edf4);background-clip:text;-webkit-background-clip:text}.lead{max-width:590px;color:var(--muted);font-size:1.08rem}.lead strong{color:var(--text)}.actions{display:flex;flex-wrap:wrap;gap:12px;margin:27px 0 16px}.btn{min-height:48px;padding:12px 17px;border-radius:12px;display:inline-flex;align-items:center;justify-content:center;gap:9px;font-size:.82rem;font-weight:850;letter-spacing:.025em;border:1px solid transparent;transition:transform .2s,box-shadow .2s}.btn:hover{transform:translateY(-2px)}.primary{background:linear-gradient(110deg,#ed234d,#9b43db);box-shadow:0 8px 32px #d52c6b3b;color:white}.secondary{border-color:var(--line);background:#ffffff08}.secondary:hover{border-color:var(--cyan)}.micro{color:#777d96;font-size:.78rem}
+.art{position:relative;min-height:460px;display:grid;place-items:center}.moon{position:absolute;width:min(380px,85%);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 35% 28%,#ff9caa,#df234f 16%,#53112f 43%,#121122 69%,transparent 71%);filter:drop-shadow(0 0 60px #ff255345)}.moon:before,.moon:after{content:"";position:absolute;inset:-18px;border:1px solid #ff537e5c;border-radius:50%;transform:rotateX(68deg) rotateZ(-25deg)}.moon:after{inset:-45px -15px;border-color:#5be2f53d;transform:rotateX(70deg) rotateZ(38deg)}.artpanel{position:relative;z-index:2;width:min(350px,82%);padding:27px;border-radius:22px;border:1px solid #ffffff35;background:linear-gradient(145deg,#18182bdc,#090a12d9);box-shadow:0 18px 70px #0006;transform:rotate(3deg)}.artkicker{color:var(--cyan);letter-spacing:.22em;font-size:.66rem;font-weight:900}.arttitle{font-size:clamp(2rem,4vw,3.4rem);line-height:.94;font-weight:950;letter-spacing:-.07em;margin:15px 0}.rule{height:1px;background:linear-gradient(90deg,var(--red),var(--violet),transparent);margin:20px 0}.artbottom{display:flex;justify-content:space-between;color:var(--muted);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase}.tag{position:absolute;z-index:3;padding:9px 12px;border:1px solid var(--line);background:#0b0c16e8;border-radius:10px;font-size:.72rem;box-shadow:0 18px 70px #0006}.tag1{top:12%;left:0}.tag2{bottom:13%;right:0;color:var(--cyan)}
+.ticker{border-block:1px solid var(--line);background:#ffffff05;overflow:hidden}.tickerinner{display:flex;gap:30px;white-space:nowrap;padding:14px 0;color:#858aa4;font-size:.7rem;font-weight:850;letter-spacing:.18em;text-transform:uppercase}.tickerinner span:before{content:"✦";color:var(--red);margin-right:30px}section{padding-block:82px}.head{display:flex;align-items:end;justify-content:space-between;gap:24px;margin-bottom:28px}.head h2{font-size:clamp(2rem,4vw,3.5rem);letter-spacing:-.06em;line-height:1;margin:12px 0 0}.head p{max-width:430px;color:var(--muted);margin:0}
+.launchcard{display:grid;grid-template-columns:.8fr 1.2fr;gap:30px;align-items:center;padding:clamp(24px,5vw,48px);border-radius:26px;border:1px solid #ff31584d;background:radial-gradient(ellipse at 0 0,#ff315824,transparent 55%),linear-gradient(135deg,#181425f0,#0c0e18f0);box-shadow:0 18px 70px #0006;overflow:hidden}.cover{aspect-ratio:1;width:100%;max-width:320px;margin:auto;border-radius:18px;border:1px solid #ffffff35;display:grid;place-items:center;text-align:center;padding:25px;background:radial-gradient(circle at 50% 35%,#ff1f497e,transparent 30%),radial-gradient(circle at 70% 75%,#ab2cff80,transparent 36%),linear-gradient(145deg,#2b0918,#090911 62%,#3a1027);position:relative}.cover:before{content:"";position:absolute;inset:15px;border:1px solid #f4c77a78;border-radius:12px}.covermoon{font-size:4rem;color:#ff4967;text-shadow:0 0 25px #ff174d;line-height:1}.covername{font-size:clamp(1.8rem,4vw,3rem);font-weight:1000;letter-spacing:-.07em;color:#f4d4ac;text-shadow:0 2px 15px #ff174d;line-height:1;margin:15px 0}.coverartist{color:#e6c28c;letter-spacing:.18em;font-size:.65rem;font-weight:900}.launchcopy{position:relative;z-index:1}.launchcopy h3{font-size:clamp(2.3rem,5vw,4.5rem);letter-spacing:-.075em;line-height:.94;margin:14px 0}.launchcopy p,.world p,.support p{color:var(--muted)}.date{display:inline-flex;border:1px solid #f4c77a59;color:var(--gold);padding:7px 11px;border-radius:99px;font-size:.75rem;font-weight:900;letter-spacing:.06em}.platforms{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}.platform{border:1px solid var(--line);border-radius:10px;padding:9px 12px;font-weight:800;font-size:.8rem;background:#ffffff08}.platform:hover{border-color:var(--cyan)}
+.worldgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.world{position:relative;padding:25px;min-height:260px;border:1px solid var(--line);border-radius:20px;background:linear-gradient(145deg,#151727e6,#0a0b13f0);overflow:hidden;transition:transform .2s,border-color .2s}.world:hover{transform:translateY(-4px);border-color:#a56bff99}.world:after{content:"";position:absolute;width:180px;height:180px;right:-70px;bottom:-80px;border-radius:50%;background:var(--glow,#a56bff29);filter:blur(4px)}.code{color:var(--cyan);font-size:.67rem;font-weight:900;letter-spacing:.2em}.world h3{font-size:1.6rem;letter-spacing:-.05em;margin:25px 0 8px}.world p{font-size:.9rem}.textlink{display:inline-block;position:relative;z-index:1;color:#f0d9ff;font-size:.8rem;font-weight:850;margin-top:5px}.textlink span{color:var(--cyan)}
+.support{display:grid;grid-template-columns:1fr 1fr;gap:25px;align-items:center;padding:clamp(25px,5vw,48px);border:1px solid var(--line);border-radius:24px;background:linear-gradient(120deg,#52e6f20f,#a56bff14,#ff31580f)}.support h2{font-size:clamp(2rem,4vw,3.2rem);letter-spacing:-.06em;line-height:1;margin:12px 0}.supportactions{display:flex;flex-wrap:wrap;gap:12px}
+.sharebox{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:start;padding:24px;background:#111320c7;border:1px solid var(--line);border-radius:20px}.sharebox textarea{width:100%;min-height:120px;resize:vertical;padding:14px;color:var(--text);background:#090a12;border:1px solid var(--line);border-radius:12px}.shareactions{display:flex;flex-direction:column;gap:9px}.shareactions .btn{white-space:nowrap}.social{display:flex;flex-wrap:wrap;gap:10px}.social a{padding:10px 14px;border:1px solid var(--line);border-radius:99px;color:#c6c8d9;font-size:.82rem}.footer{border-top:1px solid var(--line);padding:32px 0 90px;color:var(--muted);font-size:.82rem}.footerinner{display:flex;justify-content:space-between;gap:25px;flex-wrap:wrap}.footer strong{color:var(--text)}.mobilebar{display:none}.sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media(max-width:850px){.hero{grid-template-columns:1fr;gap:12px;min-height:auto;padding-top:55px}.art{min-height:400px}.launchcard{grid-template-columns:1fr}.cover{max-width:280px}.worldgrid{grid-template-columns:1fr}.world{min-height:210px}.support{grid-template-columns:1fr}.head{align-items:start;flex-direction:column}.links{display:none;position:absolute;top:74px;left:0;right:0;padding:18px 22px 24px;background:#080910fa;border-bottom:1px solid var(--line);flex-direction:column;align-items:stretch}.links.open{display:flex}.toggle{display:block}}
+@media(max-width:560px){.wrap{width:calc(100% - 28px)}h1{font-size:clamp(3rem,16vw,5rem)}.hero{padding-block:45px 35px}.art{min-height:340px}.moon{width:270px}.artpanel{width:260px;padding:22px}.tag1{top:3%}.tag2{bottom:4%}section{padding-block:60px}.actions{flex-direction:column;align-items:stretch}.btn{width:100%}.sharebox{grid-template-columns:1fr}.shareactions{flex-direction:row;flex-wrap:wrap}.shareactions .btn{flex:1;white-space:normal}.mobilebar{display:flex;position:fixed;z-index:60;bottom:0;left:0;right:0;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:#080910f2;border-top:1px solid var(--line);backdrop-filter:blur(18px);gap:10px}.mobilebar .btn{flex:1;min-height:43px;padding:9px 7px;font-size:.72rem}.footer{padding-bottom:110px}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+
+.toolgrid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.toolpanel{padding:24px;border:1px solid var(--line);border-radius:20px;background:linear-gradient(145deg,#151727e6,#0a0b13f0);min-width:0}.toolpanel label{display:block;margin:12px 0 6px;color:var(--cyan);font-size:.72rem;font-weight:850;letter-spacing:.12em;text-transform:uppercase}.toolpanel input,.toolpanel select,.sxoutput{display:block;width:100%;min-height:45px;padding:12px;background:#090a12;border:1px solid var(--line);border-radius:10px;color:var(--text);font:inherit}.sxoutput{min-height:300px;resize:vertical;white-space:pre-wrap;line-height:1.55;margin-top:14px}.toolpanel input:focus,.toolpanel select:focus,.sxoutput:focus{outline:2px solid var(--cyan);outline-offset:2px}
+@media(max-width:850px){.toolgrid{grid-template-columns:1fr}}
+
+</style>
 </head>
 <body>
-  <header class="topbar">
-    <div class="wrap nav">
-      <a class="brand" href="#top" aria-label="SoulSoundWorld home">SOUL<span>SOUND</span>WORLD</a>
-      <nav class="navlinks" aria-label="Main navigation">
-        <a href="#stories">Stories</a>
-        <a href="#music">Music</a>
-        <a href="#soul-expression">SoulExpression</a>
-        <a href="#connect">Connect</a>
-        <a href="#contact">Contact</a>
-        <a href="#insiders">Insiders</a>
-      </nav>
+<div class="topline"></div>
+<header><nav class="wrap">
+<a class="brand" href="#top"><span class="mark"><span>✦</span></span><span>SOULSOUNDWORLD</span></a>
+<button class="toggle" id="toggle" aria-expanded="false" aria-controls="links">MENU ☰</button>
+<div class="links" id="links"><a href="#launch">Latest Release</a><a href="#worlds">Story Worlds</a><a href="#support">Support</a><a href="#share">Share the Signal</a><a href="#contact">Contact</a><a class="navcta" href="https://listen.pocketfm.com/2IE7/9m035nzz" target="_blank" rel="noopener">ENTER THE STORY ↗</a></div>
+</nav></header>
+<main id="top">
+<div class="wrap hero">
+<div><div class="eyebrow"><span class="pulse"></span> Independent transmedia universe</div><h1>ENTER THE<br><span class="gradient">UNIVERSE.</span></h1><p class="lead"><strong>Music is the signal. Stories are the system.</strong> Step into SoulSoundWorld, the connected creative universe of Samzin Kreave—where dark soundscapes, serialized fiction, cyber-mysticism, and digital worlds collide.</p><div class="actions"><a class="btn primary" href="https://unitedmasters.com/m/death-notes-10" target="_blank" rel="noopener">PRE-SAVE DEATH NOTES ↗</a><a class="btn secondary" href="https://listen.pocketfm.com/2IE7/stv74riv" target="_blank" rel="noopener noreferrer">LISTEN TO THROUGH THE DRIFT ↗</a></div><p class="micro">One creator. Multiple worlds. Follow the signal wherever it leads.</p></div>
+<div class="art" aria-label="Abstract red moon and cybernetic universe artwork"><div class="moon"></div><div class="tag tag1">[ SIGNAL DETECTED ]</div><div class="artpanel"><div class="artkicker">SOULSOUNDWORLD // IP-001</div><div class="arttitle">REALITY IS<br><span class="gradient">A FREQUENCY.</span></div><p style="color:var(--muted);font-size:.86rem">Tune into the music. Unlock the lore. Discover the worlds behind the sound.</p><div class="rule"></div><div class="artbottom"><span>Creative universe</span><span>SYS: ONLINE</span></div></div><div class="tag tag2">✦ MUSIC / LORE / ART</div></div>
+</div>
+<div class="ticker"><div class="wrap tickerinner"><span>Original music</span><span>Serialized fiction</span><span>Cyber-mysticism</span><span>Retro-arcade lore</span><span>Digital art</span><span>Independent creation</span></div></div>
+<section id="launch"><div class="wrap"><div class="eyebrow"><span class="pulse"></span> Launch horizon / 01</div><div class="launchcard" style="margin-top:18px">
+<div class="cover" role="img" aria-label="Stylized Death Notes album artwork concept"><div><div class="covermoon">◉</div><div class="covername">DEATH<br>NOTES</div><div class="coverartist">SAMZIN KREAVE</div></div></div>
+<div class="launchcopy"><span class="date">AVAILABLE OCTOBER 23, 2026</span><h3>DEATH<br><span class="gradient">NOTES.</span></h3><p>A dark transmission from the SoulSoundWorld universe. Follow the signal into the album, then explore the fiction and lore that surround it.</p><div class="actions"><a class="btn primary" href="https://unitedmasters.com/m/death-notes-10" target="_blank" rel="noopener">PRE-SAVE / OPEN RELEASE ↗</a><button class="btn secondary" id="copyDeath">COPY RELEASE LINK</button></div><div class="platforms"><a class="platform" href="https://open.spotify.com/artist/3uugCAf5GNkNToPtdWGcQl" target="_blank" rel="noopener">◉ Spotify artist ↗</a><a class="platform" href="https://unitedmasters.com/m/death-notes-10" target="_blank" rel="noopener">♫ UnitedMasters ↗</a></div></div>
+</div></div></section>
+<section id="worlds"><div class="wrap"><div class="head"><div><div class="eyebrow">Explore the canon / 02</div><h2>THREE WORLDS.<br>ONE SIGNAL.</h2></div><p>Each project is its own doorway. Together, they form a growing creative ecosystem where music and narrative deepen one another.</p></div>
+<div class="worldgrid">
+<article class="world" style="--glow:#428fff33"><div class="code">WORLD 001 // SCI-FI</div><h3>Through the Drift</h3><p>A cinematic science-fiction saga of pilots, cybernetic systems, fractured realities, and the cost of connection.</p><a class="textlink" href="https://unitedmasters.com/m/through-the-drift" target="_blank" rel="noopener">ALBUM • DEC 04, 2026 ↗</a><br><a class="textlink" href="https://listen.pocketfm.com/2IE7/stv74riv" target="_blank" rel="noopener">EXPLORE THE STORIES ↗</a></article>
+<article class="world" style="--glow:#ff315833"><div class="code">WORLD 002 // DARK FICTION</div><h3>Death Notes</h3><p>Dark speculative storytelling where every choice leaves a mark and every signal may conceal a warning.</p><a class="textlink" href="https://unitedmasters.com/m/death-notes-10" target="_blank" rel="noopener">OPEN THE ALBUM ↗</a><br><a class="textlink" href="https://listen.pocketfm.com/2IE7/nzun34b3" target="_blank" rel="noopener">FIND THE FICTION ↗</a></article>
+<article class="world" style="--glow:#50ffb729"><div class="code">WORLD 003 // FANTASY</div><h3>Goblin Salt</h3><p>A strange, expanding world of hidden systems, dangerous discoveries, and lore built episode by episode.</p><a class="textlink" href="https://listen.pocketfm.com/2IE7/u8uc3jy4" target="_blank" rel="noopener">ENTER POCKET FM ↗</a></article>
+<article class="world" style="--glow:#52e6f233"><div class="code">WORLD 004 // AUDIO FICTION</div><h3>Nova Prime</h3><p>A Pocket FM story ready to explore. Enter the transmission and discover its world.</p><a class="textlink" href="https://pocketfm.onelink.me/2IE7?af_dp=pocketfm%3A%2F%2Fopen&referrer_uid=1a0b9294cef306442e2268ae8a457c49bbe63dcb&c=default&af_og_description=&af_og_image=&channel=WHATSAPP&pid=app_share&entity_id=46ca6e77e0c65d3639559162362afbf20d649f9c&af_siteid=com.radio.pocketfm&af_og_title=POCKET+FM&deep_link_value=pocketfm%3A%2F%2Fopen%3Fentity_type%3Dshow%26entity_id%3D46ca6e77e0c65d3639559162362afbf20d649f9c&af_sub1=share_button&entity_type=show&af_sub4=46ca6e77e0c65d3639559162362afbf20d649f9c&af_sub3=07d0ff613ad7f912&referrer_platform=android&af_sub2=ShowDetailsScreen&af_referrer_uid=1788396199410-6177403752601743162" target="_blank" rel="noopener noreferrer">LISTEN ON POCKET FM ↗</a></article></div><div class="actions"><a class="btn secondary" href="https://listen.pocketfm.com/2IE7/9m035nzz" target="_blank" rel="noopener">POCKET FM AUTHOR HUB ↗</a><a class="btn secondary" href="https://suno.com/@soulsoundworldofficial" target="_blank" rel="noopener">EXPLORE THE MUSIC LAB ↗</a></div>
+</div></section>
+<section id="support"><div class="wrap"><div class="support"><div><div class="eyebrow">Independent by design / 03</div><h2>SUPPORT THE<br><span class="gradient">VANGUARD.</span></h2><p>Help fuel the handwritten lore, independent music, digital artifacts, and open creative technology behind SoulSoundWorld. Every share, listen, and contribution helps the universe grow.</p></div><div class="supportactions"><a class="btn primary" href="https://cash.app/$SammuelMejias8" target="_blank" rel="noopener">SUPPORT VIA CASH APP ↗</a><a class="btn secondary" href="https://zora.co/soulsoundcreations" target="_blank" rel="noopener">COLLECT ON ZORA ↗</a><a class="btn secondary" href="https://github.com/soulsoundworldofficial-lang/soulsound-v0" target="_blank" rel="noopener">EXPLORE THE BUILD ↗</a></div></div></div></section>
+<section id="share"><div class="wrap"><div class="head"><div><div class="eyebrow">Transmit the signal / 04</div><h2>MAKE IT<br>TRAVEL.</h2></div><p>Copy a clean campaign message and share it with a friend, your group chat, or your community.</p></div>
+<div class="sharebox"><div><label class="sr" for="campaign">Campaign message</label><textarea id="campaign">Enter SoulSoundWorld. Explore music and stories by Samzin Kreave.
+
+Through the Drift: https://listen.pocketfm.com/2IE7/stv74riv
+Goblin Salt: https://listen.pocketfm.com/2IE7/u8uc3jy4
+Death Notes: https://listen.pocketfm.com/2IE7/nzun34b3
+Nova Prime: https://pocketfm.onelink.me/2IE7?af_dp=pocketfm%3A%2F%2Fopen&referrer_uid=1a0b9294cef306442e2268ae8a457c49bbe63dcb&c=default&af_og_description=&af_og_image=&channel=WHATSAPP&pid=app_share&entity_id=46ca6e77e0c65d3639559162362afbf20d649f9c&af_siteid=com.radio.pocketfm&af_og_title=POCKET+FM&deep_link_value=pocketfm%3A%2F%2Fopen%3Fentity_type%3Dshow%26entity_id%3D46ca6e77e0c65d3639559162362afbf20d649f9c&af_sub1=share_button&entity_type=show&af_sub4=46ca6e77e0c65d3639559162362afbf20d649f9c&af_sub3=07d0ff613ad7f912&referrer_platform=android&af_sub2=ShowDetailsScreen&af_referrer_uid=1788396199410-6177403752601743162
+
+Discover the universe: https://soulsoundworld.com/</textarea><p class="micro" id="status" aria-live="polite">Ready to transmit. Edit the message before copying if you like.</p></div><div class="shareactions"><button class="btn primary" id="copyCampaign">COPY CAMPAIGN</button><button class="btn secondary" id="copyStory">COPY GOBLIN SALT</button><button class="btn secondary" id="copyDrift">COPY THROUGH THE DRIFT</button><button class="btn secondary" id="copyDeathStory">COPY DEATH NOTES STORY</button><button class="btn secondary" id="copyNova">COPY NOVA PRIME</button><button class="btn secondary" id="copySite">COPY WEBSITE</button></div></div></div></section>
+
+<section id="soul-expression"><div class="wrap">
+  <div class="head"><div><div class="eyebrow">Creator tool / 06</div><h2>SOUL<br>EXPRESSION.</h2></div><p>Generate universe-aware promotional copy for the current SoulSoundWorld projects. This local tool creates text from your selections; it does not analyze audio or fetch live analytics.</p></div>
+  <div class="toolgrid">
+    <div class="toolpanel">
+      <label for="sxCreator">Creator name</label><input id="sxCreator" value="Samzin Kreave">
+      <label for="sxLink">Song / story / project link</label><input id="sxLink" type="url" placeholder="Paste a project link">
+      <label for="sxUniverse">Target universe</label>
+      <select id="sxUniverse">
+        <option value="through">Through the Drift</option><option value="goblin">Goblin Salt</option><option value="death">Death Notes</option><option value="nova">Nova Prime</option><option value="redmoons">Under the Red Moons</option><option value="general">SoulSoundWorld — General</option>
+      </select>
+      <label for="sxLane">Creative lane</label><select id="sxLane"><option>Music</option><option>Serialized story</option><option selected>Music + story / transmedia</option><option>Video / comic trailer</option></select>
+      <label for="sxGoal">Campaign objective</label><select id="sxGoal"><option value="discover">Reach new people</option><option value="click">Drive link clicks</option><option value="follow">Gain followers</option><option value="engage">Start conversations</option><option value="release">Promote a release</option></select>
+      <label for="sxMood">Mood / story detail (optional)</label><input id="sxMood" placeholder="e.g. Lily's next choice, dark fantasy, heavy 808s">
+      <button class="btn primary" id="sxGenerate" type="button">GENERATE SYNC HOOK</button>
     </div>
-  </header>
+    <div class="toolpanel"><div class="code">TRANSMISSION LOG // READY TO POST</div><textarea id="sxOutput" class="sxoutput" aria-label="Generated promotional text" placeholder="Your promotional copy will appear here." readonly></textarea>
+      <div class="actions"><button class="btn primary" id="sxCopy" type="button">COPY FULL PAYLOAD</button><button class="btn secondary" id="sxCopyTags" type="button">COPY HASHTAGS</button><button class="btn secondary" id="sxShare" type="button">SHARE</button></div>
+      <p class="micro" id="sxStatus" aria-live="polite">Generated locally in your browser. Review before publishing.</p>
+    </div>
+  </div>
+</div></section>
+<section id="contact"><div class="wrap"><div class="support"><div><div class="eyebrow">Business inquiries / 07</div><h2>BOOKINGS &<br><span class="gradient">COLLABORATIONS.</span></h2><p>For inquiries, bookings, creative partnerships, and collaboration opportunities, contact SoulSoundWorld.</p><p><strong><a href="mailto:soulsoundworldofficial@gmail.com">soulsoundworldofficial@gmail.com</a></strong></p></div><div class="supportactions"><a class="btn primary" href="mailto:soulsoundworldofficial@gmail.com?subject=SoulSoundWorld%20Inquiry">EMAIL SOULSOUNDWORLD ↗</a><button class="btn secondary" id="copyEmail" type="button">COPY EMAIL ADDRESS</button></div></div></div></section>
 
-  <main id="top">
-    <div class="wrap">
-      <section class="hero">
-        <div class="eyebrow">World creation by Samzin Kreave</div>
-        <h1>Music. Stories.<br><span class="glow">Worlds without limits.</span></h1>
-        <p class="lead">Welcome to SoulSoundWorld — a creator-built universe where music, serialized fiction, characters, and connected worlds meet. Choose a world, press play, and follow the signal.</p>
-        <div class="hero-actions">
-          <a class="button primary" href="#stories">Explore the stories ↓</a>
-          <a class="button secondary" href="https://youtube.com/@samzinkreave_soulsoundworld" target="_blank" rel="noopener noreferrer">Watch on YouTube ↗</a>
-          <button type="button" data-copy="https://listen.pocketfm.com/2IE7/stv74riv">Copy Through the Drift link</button>
-        </div>
-        <div class="hero-strip" aria-label="SoulSoundWorld pillars">
-          <div class="strip-item"><strong>🎧 Music</strong><small>Tracks, releases, and sound experiments</small></div>
-          <div class="strip-item"><strong>📚 Stories</strong><small>Serialized fiction and connected lore</small></div>
-          <div class="strip-item"><strong>🪐 Worlds</strong><small>Characters, concepts, and creator-built universes</small></div>
-        </div>
-      </section>
+<section id="connect"><div class="wrap"><div class="head"><div><div class="eyebrow">Join the network / 05</div><h2>CONNECT TO<br>THE SIGNAL.</h2></div><p>Follow the creator and discover new releases, works in progress, and the worlds behind the music.</p></div><div class="social">
+<a href="https://open.spotify.com/artist/3uugCAf5GNkNToPtdWGcQl" target="_blank" rel="noopener">Spotify ↗</a><a href="https://youtube.com/@samzinkreave_soulsoundworld" target="_blank" rel="noopener">YouTube ↗</a><a href="https://www.tiktok.com/@samzin.kreave" target="_blank" rel="noopener">TikTok ↗</a><a href="https://www.instagram.com/soulsoundworld_creations?stkn=NGt5aGtjZDNlMm12" target="_blank" rel="noopener">Instagram ↗</a><a href="https://listen.pocketfm.com/2IE7/9m035nzz" target="_blank" rel="noopener">Pocket FM ↗</a><a href="https://zora.co/soulsoundcreations" target="_blank" rel="noopener">Zora ↗</a><a href="https://suno.com/@soulsoundworldofficial" target="_blank" rel="noopener">Suno ↗</a><a href="https://www.bandlab.com/skreave" target="_blank" rel="noopener">BandLab ↗</a><a href="https://www.reddit.com/u/Samzin_Kreave/" target="_blank" rel="noopener">Reddit ↗</a><a href="https://github.com/soulsoundworldofficial-lang" target="_blank" rel="noopener">GitHub ↗</a><a href="https://www.facebook.com/share/1DncoHn9B6/" target="_blank" rel="noopener">Facebook ↗</a>
+</div></div></section>
+</main>
+<footer class="footer"><div class="wrap footerinner"><div><strong>SOULSOUNDWORLD</strong><br>Created by Samzin Kreave.<br>Music is the signal. Stories are the system.</div><div>© <span id="year">2026</span> SoulSoundWorld. Independent creative universe.<br><a href="mailto:soulsoundworldofficial@gmail.com">soulsoundworldofficial@gmail.com</a></div></div></footer>
+<div class="mobilebar"><a class="btn primary" href="https://unitedmasters.com/m/death-notes-10" target="_blank" rel="noopener">DEATH NOTES ↗</a><a class="btn secondary" href="https://listen.pocketfm.com/2IE7/9m035nzz" target="_blank" rel="noopener">POCKET FM HUB ↗</a></div>
+<script>
+const toggle=document.getElementById('toggle'),links=document.getElementById('links'),status=document.getElementById('status');
+toggle.addEventListener('click',()=>{const open=links.classList.toggle('open');toggle.setAttribute('aria-expanded',String(open))});
+links.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{links.classList.remove('open');toggle.setAttribute('aria-expanded','false')}));
+async function copy(text,msg){try{await navigator.clipboard.writeText(text);status.textContent=msg}catch(e){const area=document.getElementById('campaign');area.value=text;area.focus();area.select();status.textContent='Automatic copy was blocked. The text is selected—use Copy from your device menu.'}}
+document.getElementById('copyCampaign').addEventListener('click',()=>copy(document.getElementById('campaign').value,'Campaign copied. Send the signal.'));
+document.getElementById('copyStory').addEventListener('click',()=>copy('https://listen.pocketfm.com/2IE7/u8uc3jy4','Goblin Salt link copied.'));
+document.getElementById('copyDrift').addEventListener('click',()=>copy('https://listen.pocketfm.com/2IE7/stv74riv','Through the Drift link copied.'));
+document.getElementById('copyDeathStory').addEventListener('click',()=>copy('https://listen.pocketfm.com/2IE7/nzun34b3','Death Notes story link copied.'));
+document.getElementById('copyNova').addEventListener('click',()=>copy('https://pocketfm.onelink.me/2IE7?af_dp=pocketfm%3A%2F%2Fopen&referrer_uid=1a0b9294cef306442e2268ae8a457c49bbe63dcb&c=default&af_og_description=&af_og_image=&channel=WHATSAPP&pid=app_share&entity_id=46ca6e77e0c65d3639559162362afbf20d649f9c&af_siteid=com.radio.pocketfm&af_og_title=POCKET+FM&deep_link_value=pocketfm%3A%2F%2Fopen%3Fentity_type%3Dshow%26entity_id%3D46ca6e77e0c65d3639559162362afbf20d649f9c&af_sub1=share_button&entity_type=show&af_sub4=46ca6e77e0c65d3639559162362afbf20d649f9c&af_sub3=07d0ff613ad7f912&referrer_platform=android&af_sub2=ShowDetailsScreen&af_referrer_uid=1788396199410-6177403752601743162','Nova Prime link copied.'));
+document.getElementById('copySite').addEventListener('click',()=>copy('https://soulsoundworld.com/','SoulSoundWorld website link copied.'));
+document.getElementById('copyDeath').addEventListener('click',()=>copy('https://unitedmasters.com/m/death-notes-10','Death Notes release link copied.'));
 
-      <section id="stories">
-        <div class="section-head">
-          <div><div class="eyebrow">Enter a story</div><h2>Three worlds. Start anywhere.</h2><p>Each card takes visitors straight to the Pocket FM story page you shared.</p></div>
-          <button type="button" data-copy="https://listen.pocketfm.com/2IE7/u8uc3jy4">Copy Goblin Salt link</button>
-        </div>
-        <div class="grid">
-          <article class="card story-card goblin">
-            <div class="story-icon" aria-hidden="true">🧂</div><span class="tag">Dark fantasy</span>
-            <h3>Goblin Salt</h3>
-            <p>Step into a dangerous fantasy world and discover what waits beneath the surface.</p>
-            <div class="actions"><a class="button primary" href="https://listen.pocketfm.com/2IE7/u8uc3jy4" target="_blank" rel="noopener noreferrer">Listen free ↗</a><button type="button" data-copy="https://listen.pocketfm.com/2IE7/u8uc3jy4">Copy link</button></div>
-          </article>
-          <article class="card story-card drift">
-            <div class="story-icon" aria-hidden="true">🚀</div><span class="tag">Sci-fi · Audio fiction</span>
-            <h3>Through the Drift</h3>
-            <p>Follow Lily Marie Kreave, the Soul Ship, and a high-stakes journey through a fractured universe.</p>
-            <div class="actions"><a class="button primary" href="https://listen.pocketfm.com/2IE7/stv74riv" target="_blank" rel="noopener noreferrer">Listen free ↗</a><button type="button" data-copy="https://listen.pocketfm.com/2IE7/stv74riv">Copy link</button></div>
-          </article>
-          <article class="card story-card death">
-            <div class="story-icon" aria-hidden="true">🖤</div><span class="tag">Dark psychological fiction</span>
-            <h3>Death Notes</h3>
-            <p>Explore the darker side of the SoulSoundWorld creative universe through story and sound.</p>
-            <div class="actions"><a class="button primary" href="https://listen.pocketfm.com/2IE7/nzun34b3" target="_blank" rel="noopener noreferrer">Listen free ↗</a><button type="button" data-copy="https://listen.pocketfm.com/2IE7/nzun34b3">Copy link</button></div>
-          </article>
-        </div>
-        <p class="fine" style="margin-top:.8rem">Pocket FM availability and listening terms are controlled by Pocket FM. These are direct story links, not embedded players.</p>
-      </section>
+const sxData={
+  through:{name:"Through the Drift",link:"https://listen.pocketfm.com/2IE7/stv74riv",tags:"#SoulSoundWorld #ThroughTheDrift #PocketFM #SciFiAudio #SolTech",hooks:["SIGNAL ACQUIRED: Lily Marie Kreave's journey through the Drift is only beginning.","The Soul Ship is calling. Every choice could change the route through the fractured universe.","A new frequency moves through the Drift. Follow the signal beyond the next jump."],question:"What would you risk to keep the Soul Ship flying?"},
+  goblin:{name:"Goblin Salt",link:"https://listen.pocketfm.com/2IE7/u8uc3jy4",tags:"#SoulSoundWorld #GoblinSalt #PocketFM #DarkFantasy #AudioFiction",hooks:["GREEN PLASMA SIGNAL: The deeper you go, the more the world demands in return.","A strange frequency is rising beneath Goblin Salt. The next chapter may change everything.","The salt is never just salt. Discover what is hiding underneath."],question:"What do you think is really powering the green plasma?"},
+  death:{name:"Death Notes",link:"https://listen.pocketfm.com/2IE7/nzun34b3",tags:"#SoulSoundWorld #DeathNotes #PocketFM #DarkFiction #DarkSynthwave",hooks:["DARK FREQUENCY DETECTED: Every note leaves a trace, and every trace points somewhere.","The signal gets colder. Step into Death Notes and follow the story beneath the sound.","Some stories do not end when the music stops. This is one of them."],question:"Which detail do you think matters most in the story so far?"},
+  nova:{name:"Nova Prime",link:"https://pocketfm.onelink.me/2IE7?af_dp=pocketfm%3A%2F%2Fopen&referrer_uid=1a0b9294cef306442e2268ae8a457c49bbe63dcb&c=default&af_og_description=&af_og_image=&channel=WHATSAPP&pid=app_share&entity_id=46ca6e77e0c65d3639559162362afbf20d649f9c&af_siteid=com.radio.pocketfm&af_og_title=POCKET+FM&deep_link_value=pocketfm%3A%2F%2Fopen%3Fentity_type%3Dshow%26entity_id%3D46ca6e77e0c65d3639559162362afbf20d649f9c&af_sub1=share_button&entity_type=show&af_sub4=46ca6e77e0c65d3639559162362afbf20d649f9c&af_sub3=07d0ff613ad7f912&referrer_platform=android&af_sub2=ShowDetailsScreen&af_referrer_uid=1788396199410-6177403752601743162",tags:"#SoulSoundWorld #NovaPrime #PocketFM #SciFiAudio #AudioFiction",hooks:["NOVA PRIME SIGNAL: A new world is opening. The next discovery could change everything.","Transmission received from Nova Prime. Step into the story and discover what waits beyond the signal.","Every universe has a turning point. Nova Prime is calling you toward its next chapter."],question:"What mystery do you think waits in Nova Prime?"},
+  redmoons:{name:"Under the Red Moons",link:"",tags:"#SoulSoundWorld #UnderTheRedMoons #DarkFantasy #AudioFiction #Worldbuilding",hooks:["THE RED MOONS ARE RISING: The borders between worlds are beginning to weaken.","Every faction has a reason to fear the red moons. Which truth will survive the night?","A fractured reality. Competing powers. One signal pulling the worlds toward collapse."],question:"Which faction would you trust when the boundaries between worlds fail?"},
+  general:{name:"SoulSoundWorld",link:"https://soulsoundworld.com/",tags:"#SoulSoundWorld #SamzinKreave #IndependentCreator #MusicAndStory #Worldbuilding",hooks:["ONE CREATOR. MANY WORLDS. Music and stories connected by a signal of their own.","Welcome to SoulSoundWorld: where sound becomes story and stories open new worlds.","Every project is another doorway. Choose a world and follow the signal."],question:"Which SoulSoundWorld project should we spotlight next?"}
+};
+const sxGoals={
+  discover:"Explore the project and share it with someone who would enjoy this world.",
+  click:"Open the project link and step into the story or sound.",
+  follow:"Follow Samzin Kreave for more music, story chapters, and worldbuilding.",
+  engage:"Tell me what stands out to you. "+'',
+  release:"Check out the project and follow for future release updates."
+};
+function sxGenerate(){
+ const key=document.getElementById('sxUniverse').value, cfg=sxData[key];
+ const creator=(document.getElementById('sxCreator').value.trim()||'Samzin Kreave').replace(/[<>]/g,'');
+ const raw=document.getElementById('sxLink').value.trim();
+ const url=raw||cfg.link;
+ if(raw){try{const parsed=new URL(raw);if(!['https:','http:'].includes(parsed.protocol))throw Error();}catch(e){document.getElementById('sxStatus').textContent='Please enter a valid HTTP(S) project URL.';return '';}}
+ const lane=document.getElementById('sxLane').value, goal=document.getElementById('sxGoal').value;
+ const mood=document.getElementById('sxMood').value.trim().replace(/[<>]/g,'');
+ const hook=cfg.hooks[Math.floor(Math.random()*cfg.hooks.length)];
+ const cta=goal==='engage'?cfg.question:sxGoals[goal];
+ const payload='SOUL-EXPRESSION // MULTIVERSAL SYNC ENGINE\nPROJECT: '+cfg.name+'\nCREATOR: '+creator+'\nCREATIVE LANE: '+lane+'\nCAMPAIGN OBJECTIVE: '+goal.toUpperCase()+'\n\n'+hook+(mood?'\n\nCREATOR NOTE: '+mood:'')+'\n\n'+cta+(url?'\n\nEXPLORE: '+url:'')+'\n\n'+cfg.tags+'\n\nSoulSoundWorld · World creation by '+creator;
+ document.getElementById('sxOutput').value=payload;
+ document.getElementById('sxStatus').textContent='Payload generated locally. Check the URL and claims before publishing.';
+ return payload;
+}
+document.getElementById('sxUniverse').addEventListener('change',()=>{const key=document.getElementById('sxUniverse').value;document.getElementById('sxLink').value=sxData[key].link;});
+document.getElementById('sxGenerate').addEventListener('click',()=>{if(sxGenerate())document.getElementById('sxStatus').textContent='Sync hook generated. Review before posting.';});
+document.getElementById('sxCopy').addEventListener('click',async()=>{const out=document.getElementById('sxOutput');if(!out.value)sxGenerate();if(out.value)await copyGeneric(out.value,'SoulExpression payload copied.');});
+document.getElementById('sxCopyTags').addEventListener('click',()=>{const key=document.getElementById('sxUniverse').value;const matches=document.getElementById('sxOutput').value.match(/#[A-Za-z0-9_]+/g);copyGeneric(matches?matches.join(' '):sxData[key].tags,'Hashtags copied.');});
+document.getElementById('sxShare').addEventListener('click',async()=>{let text=document.getElementById('sxOutput').value;if(!text)text=sxGenerate();if(!text)return;if(navigator.share){try{await navigator.share({title:'SoulExpression · SoulSoundWorld',text});}catch(e){if(e.name!=='AbortError')document.getElementById('sxStatus').textContent='Sharing is unavailable in this browser.';}}else await copyGeneric(text,'Share menu unavailable; payload copied.');});
+async function copyGeneric(text,msg){try{await navigator.clipboard.writeText(text);const s=document.getElementById('sxStatus');if(s)s.textContent=msg;else status.textContent=msg;}catch(e){const out=document.getElementById('sxOutput');if(out){out.value=text;out.focus();out.select();document.getElementById('sxStatus').textContent='Automatic copy blocked. Text selected for manual copying.';}else{const area=document.getElementById('campaign');area.value=text;area.focus();area.select();status.textContent='Automatic copy blocked. Text selected for manual copying.';}}}
+document.getElementById('copyEmail').addEventListener('click',()=>copyGeneric('soulsoundworldofficial@gmail.com','Email address copied.'));
 
-      <section id="music">
-        <div class="section-head">
-          <div><div class="eyebrow">Listen and follow</div><h2>Music & releases</h2><p>Find Samzin Kreave across music and creator platforms.</p></div>
-        </div>
-        <div class="grid two">
-          <article class="card">
-            <span class="tag">Featured release</span>
-            <h3>Death Notes — October 22, 2026</h3>
-            <p>Upcoming release campaign. Visit the UnitedMasters project page for the current release and pre-save options.</p>
-            <div class="actions">
-              <a class="button primary" href="https://unitedmasters.com/m/death-notes-10" target="_blank" rel="noopener noreferrer">Death Notes release page ↗</a>
-              <button type="button" data-copy="Death Notes by Samzin Kreave — releasing October 22, 2026. Find the project here: https://unitedmasters.com/m/death-notes-10">Copy promo</button>
-            </div>
-          </article>
-          <article class="card">
-            <span class="tag">Sci-fi transmedia</span>
-            <h3>Through the Drift</h3>
-            <p>Explore the music-connected universe and its project page.</p>
-            <div class="actions">
-              <a class="button primary" href="https://unitedmasters.com/m/through-the-drift" target="_blank" rel="noopener noreferrer">Through the Drift ↗</a>
-              <button type="button" data-copy="Through the Drift — music and story by Samzin Kreave. Explore the project: https://unitedmasters.com/m/through-the-drift">Copy promo</button>
-            </div>
-          </article>
-        </div>
-        <div style="margin-top:1rem" class="link-grid">
-          <a class="link-card" href="https://open.spotify.com/artist/3uugCAf5GNkNToPtdWGcQl" target="_blank" rel="noopener noreferrer"><strong>🎵 Spotify</strong><span>Artist profile</span></a>
-          <a class="link-card" href="https://suno.com/@soulsoundworldofficial" target="_blank" rel="noopener noreferrer"><strong>🎛️ Suno</strong><span>Music catalog</span></a>
-          <a class="link-card" href="https://www.bandlab.com/skreave" target="_blank" rel="noopener noreferrer"><strong>🎚️ BandLab</strong><span>Creator profile</span></a>
-          <a class="link-card" href="https://youtube.com/@samzinkreave_soulsoundworld" target="_blank" rel="noopener noreferrer"><strong>▶️ YouTube</strong><span>Videos and shorts</span></a>
-        </div>
-      </section>
-
-      <section id="soul-expression">
-        <div class="section-head">
-          <div><div class="eyebrow">Creator utility</div><h2>SoulExpression</h2><p>Build a quick promotional caption from your project details. This runs in your browser and does not fetch analytics or verify links.</p></div>
-        </div>
-        <div class="tool-layout">
-          <div class="card">
-            <div class="field"><label for="creator">Creator / artist name</label><input id="creator" value="Samzin Kreave" autocomplete="name"></div>
-            <div class="field"><label for="project">Project title</label><input id="project" value="Through the Drift" placeholder="Song, story, album, or series"></div>
-            <div class="field"><label for="lane">Creative lane</label><select id="lane"><option value="music">Music</option><option value="story">Serialized story</option><option value="transmedia" selected>Music + story / transmedia</option><option value="video">Video / short-form content</option></select></div>
-            <div class="field"><label for="goal">Main goal</label><select id="goal"><option value="discover">Reach new people</option><option value="click">Get link clicks</option><option value="follow">Gain followers</option><option value="engage">Start conversations</option><option value="release">Promote a release</option></select></div>
-            <div class="field"><label for="destination">Main link (optional)</label><input id="destination" value="https://listen.pocketfm.com/2IE7/stv74riv" type="url" placeholder="https://..."></div>
-            <div class="field"><label for="vibe">Mood / hook (optional)</label><input id="vibe" placeholder="e.g. dark sci-fi, cinematic, high energy"></div>
-            <button class="primary" id="generate" type="button">Generate caption</button>
-          </div>
-          <div class="card">
-            <h3>Your ready-to-copy promo</h3>
-            <div id="captionOutput" class="output" aria-live="polite">Fill in your project details and select “Generate caption.”</div>
-            <div class="actions">
-              <button class="primary" id="copyCaption" type="button">Copy caption</button>
-              <button id="copyHashtags" type="button">Copy hashtags</button>
-              <button id="shareCaption" type="button">Share…</button>
-            </div>
-            <p class="fine">The tool generates a starting draft from your inputs. Check every claim, link, release date, and platform detail before posting.</p>
-          </div>
-        </div>
-      </section>
-
-      <section id="connect">
-        <div class="section-head">
-          <div><div class="eyebrow">Find the signal</div><h2>Connect with SoulSoundWorld</h2><p>Follow the work, share the stories, or support independent creation.</p></div>
-        </div>
-        <div class="link-grid">
-          <a class="link-card" href="https://www.tiktok.com/@samzin.kreave" target="_blank" rel="noopener noreferrer"><strong>♪ TikTok</strong><span>Short-form clips</span></a>
-          <a class="link-card" href="https://www.instagram.com/soulsoundworld_creations?stkn=NGt5aGtjZDNlMm12" target="_blank" rel="noopener noreferrer"><strong>◎ Instagram</strong><span>Visuals and updates</span></a>
-          <a class="link-card" href="https://www.facebook.com/share/1DncoHn9B6/" target="_blank" rel="noopener noreferrer"><strong>f Facebook</strong><span>Community posts</span></a>
-          <a class="link-card" href="https://www.reddit.com/u/Samzin_Kreave/s/dPTt9k3vus" target="_blank" rel="noopener noreferrer"><strong>◉ Reddit</strong><span>Creator discussions</span></a>
-          <a class="link-card" href="https://listen.pocketfm.com/2IE7/9m035nzz" target="_blank" rel="noopener noreferrer"><strong>📚 Pocket FM hub</strong><span>Author profile / other stories</span></a>
-          <a class="link-card" href="https://zora.co/soulsoundcreations" target="_blank" rel="noopener noreferrer"><strong>◇ Zora</strong><span>Digital creative work</span></a>
-          <a class="link-card" href="https://github.com/soulsoundworldofficial-lang" target="_blank" rel="noopener noreferrer"><strong>⌘ GitHub</strong><span>Open creator projects</span></a>
-          <a class="link-card" href="https://cash.app/$SammuelMejias8" target="_blank" rel="noopener noreferrer"><strong>♡ Support</strong><span>Cash App</span></a>
-        </div>
-        <div class="actions" style="margin-top:1rem">
-          <button class="primary" type="button" id="shareSite">Share this website ↗</button>
-          <button type="button" data-copy="https://listen.pocketfm.com/2IE7/u8uc3jy4">Copy Goblin Salt</button>
-          <button type="button" data-copy="https://listen.pocketfm.com/2IE7/stv74riv">Copy Through the Drift</button>
-          <button type="button" data-copy="https://listen.pocketfm.com/2IE7/nzun34b3">Copy Death Notes</button>
-        </div>
-      </section>
-
-
-      <section id="contact">
-        <div class="section-head">
-          <div>
-            <div class="eyebrow">Let's build something</div>
-            <h2>Bookings & collaborations</h2>
-            <p>For inquiries, bookings, or collaboration opportunities
+document.getElementById('year').textContent=new Date().getFullYear();
+</script>
+</body>
+</html>
