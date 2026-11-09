@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Salt Times — Goblin Salt’s Paper</title>
+<meta name="description" content="THE SALT TIMES: the rogue broadsheet of Goblin Salt — “We print what they file under silence.” Narrated video editions of the Pocket FM dark cyberpunk thriller.">
+<style>
+  :root{
+    --bg:#07070d; --panel:#0e0e1a; --panel2:#121222;
+    --ink:#e8e8f2; --dim:#9a9ab0; --faint:#62627a;
+    --cyan:#22d3ee; --mag:#e879f9; --gold:#fbbf24; --red:#f87171;
+    --line:#23233a;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bg);color:var(--ink);font-family:Georgia,'Times New Roman',serif;line-height:1.55}
+  a{color:var(--cyan)}
+  .wrap{max-width:880px;margin:0 auto;padding:24px 18px 64px}
+  nav{display:flex;gap:18px;flex-wrap:wrap;font-family:Arial,Helvetica,sans-serif;font-size:13px;letter-spacing:.12em;text-transform:uppercase;padding:10px 0 18px;border-bottom:1px solid var(--line)}
+  nav a{color:var(--dim);text-decoration:none}
+  nav a:hover{color:var(--cyan)}
+  .masthead{text-align:center;padding:34px 0 8px}
+  .masthead .over{font-family:Arial,Helvetica,sans-serif;font-size:12px;letter-spacing:.35em;color:var(--mag);text-transform:uppercase}
+  .masthead h1{font-size:52px;letter-spacing:.06em;margin:6px 0 2px}
+  .masthead .motto{font-style:italic;color:var(--dim);font-size:17px}
+  .masthead .stamp{font-family:Arial,Helvetica,sans-serif;font-size:12px;color:var(--faint);letter-spacing:.15em;margin-top:10px;text-transform:uppercase}
+  .rule{border:none;border-top:3px double var(--line);margin:22px 0}
+  .counters{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin:8px 0 4px}
+  .counter{background:var(--panel);border:1px solid var(--line);border-top:3px solid var(--cyan);padding:18px 14px;text-align:center}
+  .counter .num{font-size:34px;font-weight:bold;color:#fff}
+  .counter .lab{font-family:Arial,Helvetica,sans-serif;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);margin-top:4px}
+  .counter .sub{font-size:12.5px;color:var(--faint);margin-top:6px;font-style:italic}
+  section{margin-top:38px}
+  h2{font-size:24px;letter-spacing:.04em;border-bottom:1px solid var(--line);padding-bottom:8px}
+  h2 .kicker{display:block;font-family:Arial,Helvetica,sans-serif;font-size:11px;letter-spacing:.3em;color:var(--mag);text-transform:uppercase;margin-bottom:4px}
+  .basis{font-size:12.5px;color:var(--faint);font-style:italic;margin:8px 0 14px}
+  .bar-row{margin:12px 0}
+  .bar-row .bar-head{display:flex;justify-content:space-between;font-size:15px}
+  .bar-row .bar-head b{color:#fff}
+  .bar{height:12px;background:var(--panel2);border:1px solid var(--line);margin-top:5px}
+  .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--cyan),var(--mag))}
+  .bar.gold i{background:linear-gradient(90deg,var(--gold),var(--red))}
+  table{width:100%;border-collapse:collapse;font-size:15px}
+  td,th{padding:8px 6px;border-bottom:1px solid var(--line);text-align:left}
+  th{font-family:Arial,Helvetica,sans-serif;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--dim)}
+  td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+  .mile{border-left:3px solid var(--gold);padding:6px 0 6px 14px;margin:14px 0}
+  .mile .d{font-family:Arial,Helvetica,sans-serif;font-size:11px;letter-spacing:.2em;color:var(--gold);text-transform:uppercase}
+  .mile p{font-size:15.5px}
+  .note{background:var(--panel);border:1px solid var(--line);padding:16px 18px;font-size:14.5px;color:var(--dim);margin-top:40px}
+  .note b{color:var(--ink)}
+  footer{margin-top:34px;text-align:center;color:var(--faint);font-size:13px}
+</style>
+<style>
+  .papers{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:10px}
+  .paper{background:var(--panel);border:1px solid var(--line);border-top:3px solid var(--mag);padding:18px 16px}
+  .paper.gold{border-top-color:var(--gold)} .paper.red{border-top-color:var(--red)}
+  .paper h3{font-size:23px;letter-spacing:.03em;margin-bottom:2px}
+  .paper .kind{font-family:Arial,Helvetica,sans-serif;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--mag)}
+  .paper.gold .kind{color:var(--gold)} .paper.red .kind{color:var(--red)}
+  .paper .pm{font-style:italic;color:var(--dim);font-size:14.5px;margin:8px 0}
+  .paper .latest{font-size:14.5px;margin:10px 0}
+  .paper .latest b{color:#fff}
+  .doors{margin-top:26px;font-size:15px}
+  .doors a{margin-right:16px}
+  footer{margin-top:48px;border-top:1px solid var(--line);padding-top:16px;font-size:13.5px;color:var(--faint);text-align:center}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="lyrics.html">Lyrics</a>
+    <a href="read.html">Reading Wing</a>
+    <a href="newsstand.html">The Newsstand</a>
+    <a href="about.html">About</a>
+    <a href="ledger.html">The Ledger</a>
+  </nav>
+  <div class="masthead">
+    <div class="over">Goblin Salt · Est. Nov 9, 2026</div>
+    <h1>THE SALT TIMES</h1>
+    <div class="motto">We print what they file under silence.</div>
+  </div>
+  <hr class="rule">
+
+  <section>
+    <h2><span class="kicker">Goblin Salt · The Paper</span>The rogue broadsheet</h2>
+    <p class="basis">In the world of GOBLIN SALT, the Gazette Holding Trust has owned the city’s printing plates for fifty years — and buries what it prints. THE SALT TIMES is the paper that got away: case files, surveillance logs, casualty lists, set in black ink on salt-stained newsprint. Every issue is a narrated video edition of one episode of GOBLIN SALT, streaming free on Pocket FM.</p>
+    <table>
+      <tr><th class="n">No.</th><th>Edition</th><th>Headline</th><th>Status</th></tr>
+      <tr><td class="n">1</td><td>The Four Hundred Feet Edition — Ep. 1 “Apartment 4B”</td><td><b>HE WATCHED HER FOR SIX WEEKS. SHE KNEW IN THREE.</b></td><td>Nov 9, 2026</td></tr>
+      <tr><td class="n">2</td><td>The Unlocked Doors Edition — Ep. 2 “Unlocked Doors”</td><td><b>SHE PAID FOR THE GATE TO BE OPEN.</b></td><td>Video edition in production</td></tr>
+    </table>
+    <p class="doors"><a href="https://listen.pocketfm.com/2IE7/u8uc3jy4">Stream GOBLIN SALT free on Pocket FM →</a> <a href="https://www.youtube.com/@samzinkreave_soulsoundworld">Watch the editions on YouTube →</a></p>
+  </section>
+
+  <footer>
+    SoulSoundWorld · Daytona Beach, Florida · <a href="https://forms.gle/8SBMYaGuH6B9RvTQ9">Join THE SIGNAL — drops first, no spam</a>
+  </footer>
+</div>
+</body>
+</html>
