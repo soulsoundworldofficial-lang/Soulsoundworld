@@ -51,7 +51,8 @@ audio{width:100%;margin:18px 0 6px}
 
   <div class="cover"><img src="https://drive.google.com/thumbnail?id=1xHSXg_5TdcpBF4C6pL0Kfw9hBX1P8fm2&sz=w1200" alt="A man in a dark neon-lit city looking up as an angel's hand reaches down through the light"></div>
 
-  <audio controls preload="metadata" src="https://drive.google.com/uc?export=view&id=19n_JEOZf_wJ5ciHZ5YbdlV_NdD17aY0S"></audio>
+  <audio id="hhf-audio" controls autoplay preload="auto" src="https://drive.google.com/uc?export=view&id=19n_JEOZf_wJ5ciHZ5YbdlV_NdD17aY0S"></audio>
+  <button id="hhf-listen" class="btn primary" style="display:none;width:100%;margin:10px 0 4px;font-size:1rem;cursor:pointer">▶ TAP TO LISTEN — FREE</button>
 
   <div class="actions">
     <a class="btn primary" href="https://drive.google.com/uc?export=download&id=19n_JEOZf_wJ5ciHZ5YbdlV_NdD17aY0S" download="Samzin-Kreave-Honesty-Hope-and-Faith.mp3">⬇ FREE DOWNLOAD — MP3</a>
@@ -98,5 +99,33 @@ May I do Thy will with all Your light</div>
   <p class="tags">#Thanksgiving #Grateful #Recovery #Sobriety #OneDayAtATime #RecoveryIsPossible #Victory #Testimony #BreakTheChains #Faith #GodIsGood #ChristianMusic #SamzinKreave #SoulSoundWorld</p>
   <p class="fineprint">© 2026 Samzin Kreave / SoulSoundWorld. Free for personal listening and sharing. God bless. 🙏</p>
 </div>
+
+<script>
+(function(){
+  var a = document.getElementById('hhf-audio');
+  var b = document.getElementById('hhf-listen');
+  var counted = false;
+  function track(path){
+    if (window.goatcounter && window.goatcounter.count) {
+      window.goatcounter.count({path: path, event: true});
+    }
+  }
+  a.addEventListener('play', function(){
+    if (!counted) { counted = true; track('hhf-play'); }
+    if (b) b.style.display = 'none';
+  });
+  function tryPlay(){
+    var p = a.play();
+    if (p && p.catch) { p.catch(function(){ if (b) b.style.display = 'inline-flex'; }); }
+  }
+  if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', tryPlay); } else { tryPlay(); }
+  document.addEventListener('pointerdown', function(){
+    if (a.paused) { a.currentTime = 0; tryPlay(); }
+  }, {once:true});
+  if (b) { b.addEventListener('click', function(){ a.currentTime = 0; tryPlay(); }); }
+  var dl = document.querySelector('a.btn.primary[download]');
+  if (dl) { dl.addEventListener('click', function(){ track('hhf-download'); }); }
+})();
+</script>
 </body>
 </html>
