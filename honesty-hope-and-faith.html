@@ -51,7 +51,7 @@ audio{width:100%;margin:18px 0 6px}
 
   <div class="cover"><img src="https://drive.google.com/thumbnail?id=1xHSXg_5TdcpBF4C6pL0Kfw9hBX1P8fm2&sz=w1200" alt="A man in a dark neon-lit city looking up as an angel's hand reaches down through the light"></div>
 
-  <audio id="hhf-audio" controls autoplay preload="auto" src="https://drive.google.com/uc?export=view&id=19n_JEOZf_wJ5ciHZ5YbdlV_NdD17aY0S"></audio>
+  <audio id="hhf-audio" controls autoplay preload="auto"></audio>
   <button id="hhf-listen" class="btn primary" style="display:none;width:100%;margin:10px 0 4px;font-size:1rem;cursor:pointer">▶ TAP TO LISTEN — FREE</button>
 
   <div class="actions">
@@ -116,6 +116,21 @@ May I do Thy will with all Your light</div>
 </script>
 <script>
 (function(){
+  // Load the song from this site's own domain (no third-party redirect) and play it from a blob URL.
+  fetch('audio/honesty-hope-and-faith.b64').then(function(r){ return r.text(); }).then(function(t){
+    var b64 = t.replace(/\s+/g, '');
+    var bin = atob(b64);
+    var bytes = new Uint8Array(bin.length);
+    for (var i = 0; i < bin.length; i++) { bytes[i] = bin.charCodeAt(i); }
+    var url = URL.createObjectURL(new Blob([bytes], {type: 'audio/mpeg'}));
+    var a = document.getElementById('hhf-audio');
+    a.src = url;
+    if (window.__hhfTryPlay) { window.__hhfTryPlay(); }
+  }).catch(function(){});
+})();
+</script>
+<script>
+(function(){
   var a = document.getElementById('hhf-audio');
   var b = document.getElementById('hhf-listen');
   var counted = false;
@@ -128,10 +143,11 @@ May I do Thy will with all Your light</div>
     if (!counted) { counted = true; track('hhf-play'); }
     if (b) b.style.display = 'none';
   });
-  function tryPlay(){
+  function tryPlay(){ if (!a.src) { return; }
     var p = a.play();
     if (p && p.catch) { p.catch(function(){ if (b) b.style.display = 'inline-flex'; }); }
   }
+  window.__hhfTryPlay = tryPlay;
   if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', tryPlay); } else { tryPlay(); }
   document.addEventListener('pointerdown', function(){
     if (a.paused) { a.currentTime = 0; tryPlay(); }
