@@ -59,6 +59,8 @@ audio{width:100%;margin:18px 0 6px}
     <a class="btn secondary" href="https://listen.pocketfm.com/2IE7/9m035nzz" target="_blank" rel="noopener">🎧 Samzin's Audio Series — Free on Pocket FM ↗</a>
   </div>
 
+  <p style="color:var(--muted);font-size:.9rem;margin:14px 0 0">▶ <span id="hhf-plays">0</span> plays · ⬇ <span id="hhf-downloads">0</span> downloads — counted live, right here on this page</p>
+
   <div class="card">
     <h2>For everyone struggling</h2>
     <p>This is for all those struggling with addiction and destructive personalities. You're not alone, and there is help all around you. Reach out to the ones you know who really care, and give yourself a chance. Try a meeting — just one — and open your heart to change.</p>
@@ -99,7 +101,19 @@ May I do Thy will with all Your light</div>
   <p class="tags">#Thanksgiving #Grateful #Recovery #Sobriety #OneDayAtATime #RecoveryIsPossible #Victory #Testimony #BreakTheChains #Faith #GodIsGood #ChristianMusic #SamzinKreave #SoulSoundWorld</p>
   <p class="fineprint">© 2026 Samzin Kreave / SoulSoundWorld. Free for personal listening and sharing. God bless. 🙏</p>
 </div>
-
+<script data-goatcounter="https://soulsoundworld.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<script>
+(function(){
+  function fill(id, path){
+    fetch('https://soulsoundworld.goatcounter.com/counter/' + path + '.json')
+      .then(function(r){ return r.json(); })
+      .then(function(d){ var el = document.getElementById(id); if (el && d && d.count != null) el.textContent = d.count; })
+      .catch(function(){});
+  }
+  fill('hhf-plays', 'hhf-play');
+  fill('hhf-downloads', 'hhf-download');
+})();
+</script>
 <script>
 (function(){
   var a = document.getElementById('hhf-audio');
